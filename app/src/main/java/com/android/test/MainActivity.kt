@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     var marker: Marker? = null
 
     lateinit var map: GoogleMap
-    lateinit var client: FusedLocationProviderClient
     lateinit var spinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +61,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?)?.getMapAsync(this)
-        client = LocationServices.getFusedLocationProviderClient(this)
 
         if(ContextCompat.checkSelfPermission(this, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             getDeviceLocation()
@@ -103,16 +101,17 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val lr = LocationRequest.create()
         lr.setNumUpdates(1)
         lr.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-        client.requestLocationUpdates(lr, locationCallback, null)
+        LocationServices.getFusedLocationProviderClient(this).requestLocationUpdates(lr, locationCallback, null)
     }
 
     private val locationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(res: LocationResult){
             for(l in res.locations){
                 if(l != null){
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(l.latitude, l.longitude), zoom))
+                    val pos = LatLng(l.latitude, l.longitude)
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, zoom))
                     marker?.remove()
-                    marker = map.addMarker(MarkerOptions().position(LatLng(l.latitude, l.longitude)))
+                    marker = map.addMarker(MarkerOptions().position(pos))
                 }
             }
         }
