@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_main)
 
         val spinner: Spinner = findViewById(R.id.spinner_services)
-        ArrayAdapter.createFromResource(this, R.array.services, android.R.layout.simple_spinner_item).also {
+        ArrayAdapter.createFromResource(this, R.array.items, android.R.layout.simple_spinner_item).also {
                 adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = adapter
         }

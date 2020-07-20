@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="services">
+    <string-array name="items">
         <item>Egyéb</item>
         <item>Gumiabroncs javítás</item>
         <item>Gépjármű diagnosztika</item>
