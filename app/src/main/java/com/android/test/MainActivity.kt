@@ -11,10 +11,6 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
@@ -22,7 +18,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
-    val DEBUG = "debug"
+//    val DEBUG = "debug"
     val PERMISSIONS_REQUEST = 1000
 
     val zoom = 10.0f
@@ -66,22 +62,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(permission.ACCESS_FINE_LOCATION), PERMISSIONS_REQUEST)
         }
-        /*
-        val queue = Volley.newRequestQueue(this)
-
-        val url = "https://tabletinvoice-production.appspot.com/saveorder"
-
-        val stringRequest = StringRequest(
-            Request.Method.POST, url,
-            Response.Listener<String> { response ->
-                Log.d(DEBUG, response)
-            },
-            Response.ErrorListener {
-                Log.d(DEBUG, "Error...")
-            })
-
-        queue.add(stringRequest)
-         */
     }
 
     @SuppressLint("MissingPermission")
