@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_top">48dp</dimen>
+    <dimen name="padding_bottom">48dp</dimen>
+    <dimen name="padding_start">32dp</dimen>
+    <dimen name="padding_end">32dp</dimen>
+
+    <dimen name="padding_button">8dp</dimen>
+
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_med">16sp</dimen>
+    <dimen name="text_big">24sp</dimen>
+
+    <dimen name="height_button">64dp</dimen>
+    <dimen name="height_edit">42dp</dimen>
+
+    <dimen name="elevation">8dp</dimen>
+</resources>
