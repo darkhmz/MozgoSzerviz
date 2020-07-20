@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test</string>
+    <string name="app_name">MozgóSzervíz</string>
     <string name="info_1">A mozgó szervizek az egész ország területén folyamatosan bővülő szolgáltatásokkal, a hét minden napján, napi 24 órában az Ön rendelkezésére állnak.</string>
     <string name="info_2">Kérjük válassza ki a listából, hogy milyen szolgáltatást szeretne igénybe venni, és jelölje be a térképen a szolgáltatás igénybevételének tervezett helyszínét.</string>
     <string name="info_3">Köszönjük, hogy megrendelte %s szolgáltatásunkat! Munkatársunk hamarosan felveszi Önnel a kapcsolatot a megadott elérhetőségen.</string>
@@ -7,7 +7,7 @@
     <string name="label_next">TOVÁBB</string>
     <string name="label_order">MEGRENDELÉS</string>
     <string name="label_error_marker">Kérem jelölje meg a térképen a szolgáltatás igénybevételének helyszínét!</string>
-    <string name="label_error_contact">Telefonszám és e-mail cím megadása kötelező!</string>
+    <string name="label_error_contact">Telefonszám és érvényes e-mail cím megadása kötelező!</string>
     <string name="label_exit">KILÉPÉS</string>
     <string name="label_phone">Telefon *</string>
     <string name="label_email">E-mail *</string>

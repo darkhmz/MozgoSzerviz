@@ -1,22 +1,35 @@
 package com.android.test
 
-import android.Manifest.*
+import android.Manifest.permission
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.*
+import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.LinearLayout
+import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import org.json.JSONArray
+import org.json.JSONException
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
+    val DEBUG = "debug"
     val PERMISSIONS_REQUEST = 1000
 
     val zoom = 10.0f
@@ -25,17 +38,15 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     lateinit var map: GoogleMap
     lateinit var client: FusedLocationProviderClient
+    lateinit var spinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_main)
 
-        val spinner: Spinner = findViewById(R.id.spinner_services)
-        ArrayAdapter.createFromResource(this, R.array.items, android.R.layout.simple_spinner_item).also {
-                adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinner.adapter = adapter
-        }
+        spinner = findViewById(R.id.spinner_services)
+        spinner.isEnabled = false
 
         findViewById<LinearLayout>(R.id.button_next).setOnClickListener{
             if(marker != null){
@@ -59,6 +70,34 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             getDeviceLocation()
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(permission.ACCESS_FINE_LOCATION), PERMISSIONS_REQUEST)
+        }
+
+        //Csak hogy legyen benne ilyen is
+        //Megpróbáljuk lekérni a szolgáltatások listáját szerverről
+        //Ha nem sikerül, akkor az alkalmazásban tárolt listával lesz feltöltve az adapter
+        val stringRequest = StringRequest(
+        Request.Method.GET, "https://tabletinvoice-production.appspot.com/getitems", Response.Listener<String> { response ->
+            try {
+//                Log.d(DEBUG, response)
+                setAdapter(JSONArray(response))
+            } catch (e: JSONException){
+                setAdapter(null)
+            }
+        },
+        Response.ErrorListener {
+            setAdapter(null)
+        })
+
+        Volley.newRequestQueue(this).add(stringRequest)
+    }
+
+    private fun setAdapter(items: JSONArray?){
+        val array = if(items != null) Array(items.length()){ items.get(it).toString() } else resources.getStringArray(R.array.items)
+
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, array).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+            spinner.isEnabled = true
         }
     }
 

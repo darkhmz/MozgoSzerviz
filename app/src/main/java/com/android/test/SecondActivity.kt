@@ -18,7 +18,7 @@ class SecondActivity : AppCompatActivity(){
             val phone = findViewById<EditText>(R.id.edit_phone).text.trim().toString()
             val email = findViewById<EditText>(R.id.edit_email).text.trim().toString()
 
-            if(phone.isEmpty() || email.isEmpty()){
+            if(phone.isEmpty() || !isValid(email)){
                 AlertDialog.Builder(this).setMessage(R.string.label_error_contact).setPositiveButton(android.R.string.ok, null).create().show()
                 return@setOnClickListener
             }
@@ -30,4 +30,9 @@ class SecondActivity : AppCompatActivity(){
             finish()
         }
     }
+
+    private fun isValid(s: String): Boolean{
+        return s.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(s).matches()
+    }
+
 }
