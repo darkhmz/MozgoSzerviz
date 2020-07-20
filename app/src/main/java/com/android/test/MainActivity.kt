@@ -76,7 +76,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val stringRequest = StringRequest(
         Request.Method.GET, "https://tabletinvoice-production.appspot.com/getitems", Response.Listener<String> { response ->
             try {
-//                Log.d(DEBUG, response)
                 setAdapter(JSONArray(response))
             } catch (e: JSONException){
                 setAdapter(null)
