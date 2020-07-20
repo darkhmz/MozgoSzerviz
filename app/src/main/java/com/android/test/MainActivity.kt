@@ -18,7 +18,6 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
-//    val DEBUG = "debug"
     val PERMISSIONS_REQUEST = 1000
 
     val zoom = 10.0f
