@@ -62,12 +62,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?)?.getMapAsync(this)
 
-        if(ContextCompat.checkSelfPermission(this, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            getDeviceLocation()
-        } else {
-            ActivityCompat.requestPermissions(this, arrayOf(permission.ACCESS_FINE_LOCATION), PERMISSIONS_REQUEST)
-        }
-
         //Csak hogy legyen benne ilyen is
         //Megpróbáljuk lekérni a szolgáltatások listáját szerverről
         //Ha nem sikerül, akkor az alkalmazásban tárolt listával lesz feltöltve az adapter
@@ -122,6 +116,12 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         this.map.setOnMapClickListener {
             marker?.remove()
             marker = map.addMarker(MarkerOptions().position(LatLng(it.latitude, it.longitude)))
+        }
+
+        if(ContextCompat.checkSelfPermission(this, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            getDeviceLocation()
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(permission.ACCESS_FINE_LOCATION), PERMISSIONS_REQUEST)
         }
     }
 
