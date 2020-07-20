@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     val PERMISSIONS_REQUEST = 1000
 
     val zoom = 10.0f
-    var locationPermissionOk: Boolean = false
     var marker: Marker? = null
 
     lateinit var map: GoogleMap
@@ -66,7 +65,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         client = LocationServices.getFusedLocationProviderClient(this)
 
         if(ContextCompat.checkSelfPermission(this, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            locationPermissionOk = true
             getDeviceLocation()
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(permission.ACCESS_FINE_LOCATION), PERMISSIONS_REQUEST)
@@ -130,11 +128,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray){
-        locationPermissionOk = false
         when(requestCode){
             PERMISSIONS_REQUEST -> {
                 if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    locationPermissionOk = true
                     getDeviceLocation()
                 }
             }
